@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>IPL</title>
+    <script src="static.js"></script>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+   
+   <style>
+        body {
+          background-image: url('Celebrating-14-Years-of-IPL-Advertisement.jpg');
+        }
+        
+        </style>
+    
+    <div class="container" id="myteam">
+
+        <h1 class="text-center m-4">Indian Premier League </h1>
+         <div class="input-group m-auto" style="max-width: 50%;">
+
+            <input type="text" class="form-control mb-5" id="searchInput" onkeyup="searchTeam(this.value)"
+                aria-describedby="basic-addon1" placeholder="Search By Team Name.....">
+        </div>
+     
+            
+            <div class="about-section">
+              <h1>About of IPL</h1>
+              <p>The 2022 Indian Premier League, also known as IPL 15 or, for sponsorship reasons, Tata IPL 2022, is scheduled to be the fifteenth season of the Indian Premier League, a professional Twenty20 cricket league established by the Board of Control for Cricket in India in 2007</p>
+              <p>Tournament format(s): Group stage and playoffs</p>
+               <p>Administrator(s): Board of Control for Cricket in India (BCCI)</p>
+            </div>
+            <h2 style="text-align:center">IPL  Teams 2022</h2>
+            <div class="row border rounded  bg-light shadow-lg p-5 mb-5 bg-body rounded" id="teamHolder"></div>
+            <h2 style="text-align:center">Board of Control for Cricket in India.</h2>
+            <div class="row">
+              <div class="column">
+                <div class="card">
+                  <img src="download (1).jpg" alt="jay shah"  width="342", height="250"">
+                  <div class="container">
+                    <h2></h2>JAY SHAH</h2>
+                    <p class="title">Honorary Secretary BCCI</p>
+                    <p>Jay Amitbhai Shah is an Indian businessman and cricket administrator. He became the Board of Control for Cricket in India Secretary in 2019. He is also the president of Asian Cricket Council. He is the son of Amit Shah, India's Minister of Home Affairs and former President of the Bharatiya Janata Party.</p>
+                    <p> jayshah@gmail.com </p>
+                   
+                  </div>
+                </div>
+              </div>
+            
+              <div class="column">
+                <div class="card">
+                  <img src="RajeevShukla.jpg" alt="RajeevShukla" width="342", height="250">
+                  
+                  <div class="container">
+                    <h2></h2>Rajeev Shukla</h2>
+                    <p class="title">Vice president(s)</p>
+                    <p>Rajeev Shukla is an Indian politician, former journalist, political commentator and the former chairman of Indian Premier League. Following the scandal over alleged corruption and spot-fixing in the IPL, Shukla resigned as its chairman on 1 June 2013.</p>
+                    <p>rajeev shukla@gmail.com</p>
+                   
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <div class="card">
+                  <img src="sg.jpg" alt="Sourav Ganguly" width="342", height="250">
+                  <div class="container">
+                    <h2>Sourav Ganguly</h2>
+                    <p class="title">President</p>
+                    <p>Sourav Chandidas Ganguly, affectionately known as Dada, is an Indian cricket administrator, commentator and former national cricket team captain who is the 39th and current president of the Board of Control for Cricket in India. He is popularly honoured as Maharaja of Indian Cricket.</p>
+                    <p>sourvganguly@gmail.com</p>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+           
+            
+              </div>
+        </div>
+    <div class="container " id="teamdetails">
+ </div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body m-auto" id="playermodal">
+
+           
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+    <script>
+        
+
+        var teamdetails = document.getElementById('teamdetails');
+        teamdetails.style.display = "none";
+        var myteam=document.getElementById('myteam');
+        var displayTeam = document.getElementById('teamHolder');
+        var getTeamdata = JSON.parse(localStorage.getItem("team_data"));
+        var finalTeamlist = "";
+        getTeamdata.forEach(element => {
+
+            finalTeamlist += `
+        <div class="col-lg-4 text-center team">
+           
+               
+            <img   class="bd-placeholder-img rounded-circle" width="140" height="140"  src="${element.Teamlogo}" alt="${element.Teamlogo}">
+
+               <h2 class="text-center">${element.teamSortName}</h2>
+           
+               <p><a class="btn btn-light btn-hover" onClick="DeatailsPage(${element.team_no})">View Teams »</a></p>
+           </div>
+
+        `
+        });
+
+        displayTeam.innerHTML = finalTeamlist;
+
+
+        function searchTeam(searchValue) {
+            
+
+            var filter, team
+            filter = searchValue.toUpperCase();
+            team = document.getElementsByClassName("team");
+
+            for (i = 0; i < team.length; i++) {
+                h2 = team[i].getElementsByTagName("h2")[0];
+                if (h2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    team[i].style.display = "";
+                } else {
+                    team[i].style.display = "none";
+                }
+            }
+
+        }
+
+        function DeatailsPage(index) {
+
+            var teamdata = getTeamdata[index - 1];
+
+            teamdetails.innerHTML = `<h1 class="text-center m-4">Teams Details</h1>
+        <button type="button" class="btn btn-primary btn-lg mb-3"><a href="home.html"
+                class="text-decoration-none text-light">Back</a></button>
+
+        <div class="card mb-3 bg-light shadow-lg p-5 mb-5 bg-body rounded">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="${teamdata.Teamlogo}" class="img-fluid rounded-start rounded-circle" alt="${teamdata.Teamlogo}"
+                        style="width:200px;height: 200px;">
+                        
+                </div>
+                <div class="col-md-8">
+                   
+                    <div class="card-body">
+                        <h1 class="card-title">${teamdata.teamFullName}</h1>
+                        <p class="card-text">About:${teamdata.About}</p>
+                        <p class="card-text">Caption:${teamdata.Caption}</p>
+                        <p class="card-text">Owner:${teamdata.Owner}</p>
+                        <p class="card-text">Coaches:${teamdata.Coaches}</p>
+                        <p class="card-text">Top Batsman:${teamdata.TopBatsMan}</p>
+                        <p class="card-text">Top Bowler:${teamdata.TopBowler}</p>
+                        <p class="card-text">Total Batsman:${teamdata.TotalBatsman}</p>
+                        <p class="card-text">Total Bowlers:${teamdata.TotalBowlers}</p>
+                        <p class="card-text">Total All Rounders:${teamdata.TotalAllRounder}</p>
+                        <p class="card-text">Trophy:${teamdata.Trophy}</p>
+                        <p class="card-text">Player:${teamdata.totalPlayer}</p>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="text-center m-4">Top 15 Player Name</h1>
+
+        <div class="row bg-light shadow-lg p-5 mb-5 bg-body rounded" id="player">
+        </div>`;
+
+            var player = document.getElementById("player");
+            var playerdata = ""
+            teamdata.player.forEach(element => {
+                playerdata += `
+                            <div class="col-lg-4 text-center">
+
+                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="${element.photo}"
+                   >
+
+                <h2 class="text-center">${element.name}</h2>
+
+                <p><a class="btn btn-secondary" onClick='playerDetails(${JSON.stringify(element)})' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Details »</a></p>
+                </div>  `
+
+            });
+
+            player.innerHTML = playerdata;
+
+            myteam.style.display="none"
+            displayTeam.style.display = "none";
+            teamdetails.style.display = "Block";
+
+        }
+        
+        function playerDetails(player_record){
+            
+            playermodal=document.getElementById('playermodal');
+            playermodal.innerHTML=`
+            <div class="card" style="width: 100%;">
+                <img src="${player_record.photo}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">${player_record.name}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">About:${player_record.About}</li>
+                  <li class="list-group-item">Team :${player_record.team}</li>
+                  <li class="list-group-item">Price :${player_record.price}</li>
+                  <li class="list-group-item">Role:${player_record.Role}</li>
+                  
+                  <li class="list-group-item">Born:${player_record.Born}</li>
+                  <li class="list-group-item">Dates joined:${player_record.Datesjoined}</li>
+                  
+                  <li class="list-group-item">Parents:${player_record.Parents}</li>
+                  
+                </ul>
+              
+              </div>
+
+            
+            
+            
+            `
+            
+            
+
+          
+        }
+
+
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+
+</html>
